@@ -1,10 +1,14 @@
 import { AutoComplete } from "antd";
 import { observer } from "mobx-react";
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 import { getAutocomplate } from "../helpers/api";
 import weatherStore from "../stores/weather";
 
 type Option = { value: string };
+
+const styles: CSSProperties = {
+  width: 'clamp(200px, 50%, 800px)',
+}
 
 /**
  * Autocomplate city and modify weatherStore with it
@@ -25,9 +29,10 @@ function Search(): JSX.Element {
 
   return (
     <AutoComplete
+      allowClear
       defaultValue={weatherStore.city}
       options={options}
-      style={{ width: 200 }}
+      style={styles}
       placeholder="Start to enter city"
       onSelect={weatherStore.setCity}
       onSearch={loadVariants}

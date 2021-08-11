@@ -1,11 +1,10 @@
 import { Empty } from "antd";
 import { reaction } from "mobx";
 import { observer } from "mobx-react";
-import { Children } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { ForecastDay } from "../api.types";
-import DayCard from "../components/DayCard";
+import DayCards from "../components/DayCards";
 import { getForecast } from "../helpers/api";
 import weather from "../stores/weather";
 
@@ -29,9 +28,16 @@ function Forecast(): JSX.Element {
   if (!data.length) return <Empty />;
 
   return (
-    <>
-      {Children.toArray(data.map((forecastElement) => <DayCard date={forecastElement.date} temperature={forecastElement.day.avgtemp_c} condition={forecastElement.day.condition} />))}
-    </>
+    <DayCards>
+      {data.map((forecastElement) => (
+        <DayCards.Card
+          key={forecastElement.date}
+          date={forecastElement.date}
+          temperature={forecastElement.day.avgtemp_c}
+          condition={forecastElement.day.condition}
+        />
+      ))}
+    </DayCards>
   )
 }
 
