@@ -1,13 +1,14 @@
 import { AutoComplete } from "antd";
 import { observer } from "mobx-react";
 import { CSSProperties, useState } from "react";
-import { getAutocomplate } from "../helpers/api";
-import weatherStore from "../stores/weather";
+import { getAutocomplate } from "../../helpers/api";
+import weatherStore from "../../stores/weather";
+import css from './Search.module.css';
 
 type Option = { value: string };
 
 const styles: CSSProperties = {
-  width: 'clamp(200px, 50%, 800px)',
+  width: '100%',
 }
 
 /**
@@ -28,15 +29,17 @@ function Search(): JSX.Element {
   };
 
   return (
-    <AutoComplete
-      allowClear
-      defaultValue={weatherStore.city}
-      options={options}
-      style={styles}
-      placeholder="Start to enter city"
-      onSelect={weatherStore.setCity}
-      onSearch={loadVariants}
-    />
+    <div className={css.wrapper}>
+      <AutoComplete
+        allowClear
+        defaultValue={weatherStore.city}
+        options={options}
+        style={styles}
+        placeholder="Start to enter city"
+        onSelect={weatherStore.setCity}
+        onSearch={loadVariants}
+      />
+    </div>
   );
 }
 
