@@ -1,8 +1,8 @@
 import { AutoComplete } from "antd";
 import { observer } from "mobx-react";
 import { useState } from "react";
-import { getAutocomplate } from "../../helpers/api";
-import weatherStore from "../../stores/weather";
+import { getAutocomplate } from "../helpers/api";
+import weatherStore from "../stores/weather";
 
 type Option = { value: string };
 
