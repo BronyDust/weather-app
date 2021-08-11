@@ -27,5 +27,7 @@ export type ForecastDay = {
 };
 
 export type Forecast = {
-  forecastday: ForecastDay[]
+  forecast: {
+    forecastday: ForecastDay[];
+  };
 };
