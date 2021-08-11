@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AutocomplateElement } from "../api.types";
+import { AutocomplateElement, Forecast } from "../api.types";
 
 const API_ENTRY = 'http://api.weatherapi.com/v1/';
 const AUTOCOMPLATE_ROUTE = 'search.json';
@@ -38,20 +38,22 @@ export async function getAutocomplate(
 /** Call api to get forecast for 8 days (at 12 o'clock) */
 export async function getForecast(
   cityName: string
-): Promise<void> {
+): Promise<Forecast | undefined> {
   try { 
     throwIfNoApiKey();
 
-    const response = await http.get(FORECAST_ROUTE, {
+    const response = await http.get<Forecast>(FORECAST_ROUTE, {
       params: {
         key: process.env.REACT_APP_WEATHER_API_KEY,
         q: cityName,
         days: 8,
+        hour: 12,
         aqi: 'no',
         alerts: 'no',
       }
     });
-    console.log(response.data);
+    
+    return response.data;
   } catch (e) {
     console.log(e);
   }
