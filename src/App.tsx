@@ -9,7 +9,7 @@ const App: FC = () => (
     <Layout.Header>
       <Search />
     </Layout.Header>
-    <Layout.Content>
+    <Layout.Content style={{ padding: '0 50px' }}>
       <ForecastView />
     </Layout.Content>
   </Layout>

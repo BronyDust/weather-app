@@ -1,11 +1,16 @@
 .wrapper {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px 50px;
+  margin: 20px auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+}
+
+@media (max-width: 970px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
 }
 
 .wrapper .card {
