@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 type WeatherDay = {
   temperature: number;
@@ -14,10 +14,18 @@ interface IWeatherStore {
 }
 
 class WeatherStore implements IWeatherStore {
-  @observable city = '';
-  @observable weather = [];
+  city = '';
+  weather = [];
 
-  @action setCity = (newCityName: string) => {
+  constructor() {
+    makeObservable(this, {
+      city: observable,
+      weather: observable,
+      setCity: action,
+    });
+  }
+
+  setCity = (newCityName: string) => {
     this.city = newCityName;
   }
 }

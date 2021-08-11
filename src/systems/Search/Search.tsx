@@ -6,7 +6,10 @@ import weatherStore from "../../stores/weather";
 
 type Option = { value: string };
 
-/** Autocomplate city and modify weatherStore with it */
+/**
+ * Autocomplate city and modify weatherStore with it
+ * Connected to mobx
+ */
 function Search(): JSX.Element {
   const [options, setOptions] = useState<Option[]>([]);
 
