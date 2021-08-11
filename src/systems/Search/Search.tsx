@@ -1,7 +1,7 @@
 import { AutoComplete } from "antd";
 import { observer } from "mobx-react";
 import { useState } from "react";
-import api from "../../helpers/api";
+import { getAutocomplate } from "../../helpers/api";
 import weatherStore from "../../stores/weather";
 
 type Option = { value: string };
@@ -16,7 +16,7 @@ function Search(): JSX.Element {
   const loadVariants = async (searchQuery: string) => {
     if (!searchQuery) return;
 
-    const prediction = await api.getAutocomplate(searchQuery);
+    const prediction = await getAutocomplate(searchQuery);
     setOptions(prediction ?? []);
   };
 
