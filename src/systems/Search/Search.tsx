@@ -16,7 +16,10 @@ function Search(): JSX.Element {
   const loadVariants = async (searchQuery: string) => {
     if (!searchQuery) return;
 
-    const prediction = await getAutocomplate(searchQuery);
+    const variants = await getAutocomplate(searchQuery);
+    const prediction = variants?.map(
+      ({ name }) => ({ value: name })
+    );
     setOptions(prediction ?? []);
   };
 
