@@ -30,7 +30,7 @@ function Forecast(): JSX.Element {
 
   return (
     <>
-      {Children.toArray(data.map((forecastElement) => <DayCard date={forecastElement.date} />))}
+      {Children.toArray(data.map((forecastElement) => <DayCard date={forecastElement.date} temperature={forecastElement.day.avgtemp_c} condition={forecastElement.day.condition} />))}
     </>
   )
 }
