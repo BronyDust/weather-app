@@ -1,8 +1,5 @@
 name: Build CRA application
-on:
-  push:
-    branches:
-      - "main"
+on: [push]
 jobs:
   deploy:
     name: Build pack and send to telegram
@@ -20,22 +17,22 @@ jobs:
           cache: "npm"
           cache-dependency-path: package-lock.json
       - name: Install dependencies
-        run: npm ci --production
+        run: npm ci
       - name: Build pack
         env:
           REACT_APP_WEATHER_API_KEY: 123123123123
         run: npm run build
       - name: Create archive
-        uses: papeloto/action-zip@v1
-        with:
-          files: build/
-          dest: package-${{ steps.date.outputs.date }}.zip
+        run: |
+          sudo apt-get install zip
+          zip -r package-${{ steps.date.outputs.date }}.zip build/*
       - name: Send to telegram
-        uses: BronyDust/send-deployment-status-to-telegram
+        uses: BronyDust/send-deployment-status-to-telegram@7242ba4ce180060c1dbdf69e667385fd2a8d47de
         if: ${{ always() }}
         with:
           attach: package-${{ steps.date.outputs.date }}.zip
           service-header: 🌑 New **Development Chrome Extension** package
+          deployment-to: live
           bot-token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          chat-id: ${{ env.TELEGRAM_CHAT_ID }}
-          status: ${{ job.status }}
+          chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
+          status: ${{ job.status }}d
