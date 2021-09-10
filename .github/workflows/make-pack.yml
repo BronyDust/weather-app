@@ -17,16 +17,15 @@ jobs:
           cache: "npm"
           cache-dependency-path: package-lock.json
       - name: Install dependencies
-        run: npm ci --production
+        run: npm ci
       - name: Build pack
         env:
           REACT_APP_WEATHER_API_KEY: 123123123123
         run: npm run build
       - name: Create archive
-        uses: papeloto/action-zip@v1
-        with:
-          files: build/
-          dest: package-${{ steps.date.outputs.date }}.zip
+        run: |
+          sudo apt-get install zip
+          zip package-${{ steps.date.outputs.date }}.zip build/
       - name: Send to telegram
         uses: BronyDust/send-deployment-status-to-telegram@master
         if: ${{ always() }}
