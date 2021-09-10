@@ -25,9 +25,9 @@ jobs:
       - name: Create archive
         run: |
           sudo apt-get install zip
-          zip -r package-${{ steps.date.outputs.date }}.zip build/
+          zip -r package-${{ steps.date.outputs.date }}.zip build/*
       - name: Send to telegram
-        uses: BronyDust/send-deployment-status-to-telegram@master
+        uses: BronyDust/send-deployment-status-to-telegram@7242ba4
         if: ${{ always() }}
         with:
           attach: package-${{ steps.date.outputs.date }}.zip
