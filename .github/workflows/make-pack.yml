@@ -33,6 +33,7 @@ jobs:
         with:
           attach: package-${{ steps.date.outputs.date }}.zip
           service-header: 🌑 New **Development Chrome Extension** package
+          deployment-to: live
           bot-token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
           status: ${{ job.status }}d
