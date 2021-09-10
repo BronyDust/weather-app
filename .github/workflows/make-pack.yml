@@ -28,7 +28,7 @@ jobs:
           files: build/
           dest: package-${{ steps.date.outputs.date }}.zip
       - name: Send to telegram
-        uses: BronyDust/send-deployment-status-to-telegram
+        uses: BronyDust/send-deployment-status-to-telegram@master
         if: ${{ always() }}
         with:
           attach: package-${{ steps.date.outputs.date }}.zip
