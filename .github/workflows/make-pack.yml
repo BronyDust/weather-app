@@ -1,8 +1,5 @@
 name: Build CRA application
-on:
-  push:
-    branches:
-      - "main"
+on: [push]
 jobs:
   deploy:
     name: Build pack and send to telegram
@@ -37,5 +34,5 @@ jobs:
           attach: package-${{ steps.date.outputs.date }}.zip
           service-header: 🌑 New **Development Chrome Extension** package
           bot-token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          chat-id: ${{ env.TELEGRAM_CHAT_ID }}
-          status: ${{ job.status }}
+          chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
+          status: ${{ job.status }}d
