@@ -1,0 +1,41 @@
+name: Build CRA application
+on:
+  push:
+    branches:
+      - "main"
+jobs:
+  deploy:
+    name: Build pack and send to telegram
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: "npm"
+          cache-dependency-path: package-lock.json
+      - name: Install dependencies
+        run: npm ci --production
+      - name: Build pack
+        env:
+          REACT_APP_WEATHER_API_KEY: 123123123123
+        run: npm run build
+      - name: Create archive
+        uses: papeloto/action-zip@v1
+        with:
+          files: build/
+          dest: package-${{ steps.date.outputs.date }}.zip
+      - name: Send to telegram
+        uses: BronyDust/send-deployment-status-to-telegram
+        if: ${{ always() }}
+        with:
+          attach: package-${{ steps.date.outputs.date }}.zip
+          service-header: 🌑 New **Development Chrome Extension** package
+          bot-token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          chat-id: ${{ env.TELEGRAM_CHAT_ID }}
+          status: ${{ job.status }}
