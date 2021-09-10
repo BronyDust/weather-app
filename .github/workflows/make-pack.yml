@@ -27,7 +27,7 @@ jobs:
           sudo apt-get install zip
           zip -r package-${{ steps.date.outputs.date }}.zip build/*
       - name: Send to telegram
-        uses: BronyDust/send-deployment-status-to-telegram@7242ba4
+        uses: BronyDust/send-deployment-status-to-telegram@7242ba4ce180060c1dbdf69e667385fd2a8d47de
         if: ${{ always() }}
         with:
           attach: package-${{ steps.date.outputs.date }}.zip
